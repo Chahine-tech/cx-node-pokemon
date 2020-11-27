@@ -3,6 +3,7 @@ const express = require("express");
 const app = express();
 const pokedex = require('./routes/pokedex.json');
 const fs = require('fs');
+const bodyParser = require('body-parser');
 
 
 //app.use("/", function(){});
@@ -30,9 +31,7 @@ app.post("/items", (req,res) => {
             type: req.body.type,
             base: req.body.base
         }
-
-      
-
+        res.send(pokemon)
 
 });
 
@@ -40,7 +39,9 @@ app.post("/items", (req,res) => {
 app.delete("/api/items/:id", (req,res) => {
   const pokemon = pokedex.find(c => c.id == parseInt(req.params.id))
     if(!pokemon) return res.status(404).send('Pokemon not found')
-        pokemon.splice(2)
+  const index = pokedex.indexOf(pokemon)
+    
+    pokedex.splice(index, 1)
           res.send("Pokemon delete")
 
 })

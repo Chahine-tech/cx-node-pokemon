@@ -37,7 +37,6 @@ app.post("/items", (req,res) => {
 });
 
 
-
 app.delete("/api/items/:id", (req,res) => {
   const pokemon = pokedex.find(c => c.id == parseInt(req.params.id))
     if(!pokemon) return res.status(404).send('Pokemon not found')
